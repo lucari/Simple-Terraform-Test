@@ -1,0 +1,18 @@
+If we used 'impersonate_service_account', we need to authenticate locally with gcloud
+
+ $  gcloud auth application-default login
+
+This gives us a command we have to use to run outside of WSL in a browser so we can login to get an access token (using the real user account). 
+
+This gives us a command we run back in the WSL shell to set the application defaults (~/.config/gcloud/application_default_credentials.json)
+
+We also need to grant access from  real user account to the service account with 'roles/iam.serviceAccountTokenCreator' although it may also 
+just work if you have the Editor global role.
+
+Or for testing, just get the Keys from the service account and used the 'credentials' option instead !!!
+
+The token only last for a few hours and then dies. To clear it sooner, type:
+
+$ gcloud auth application-default revoke
+
+Note that if the user account has the rights anyway (editor) then it doesn't need the service account to impersonate !!!
